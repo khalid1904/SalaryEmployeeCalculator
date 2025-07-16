@@ -1,28 +1,74 @@
+// =====================================================
+// GRADLE BUILD CONFIGURATION FILE
+// =====================================================
+// This file tells Gradle (build tool) how to build your Spring Boot application
+// Gradle is like a recipe that tells the computer how to compile and package your code
+
+// PLUGINS SECTION - These are like "tools" that add functionality to your build
 plugins {
+	// Java plugin - enables Java compilation and packaging
 	id 'java'
+	
+	// Spring Boot plugin - adds Spring Boot specific build features
+	// This plugin automatically creates executable JAR files
 	id 'org.springframework.boot' version '2.7.18'
+	
+	// Dependency management plugin - helps manage library versions
+	// Automatically handles version conflicts between different libraries
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+// PROJECT METADATA
+group = 'com.example'                    // Organization/company identifier
+version = '0.0.1-SNAPSHOT'              // Version of your application
 
-sourceCompatibility = '8'
-targetCompatibility = '8'
+// JAVA VERSION CONFIGURATION
+sourceCompatibility = '8'                // Java version your source code uses
+targetCompatibility = '8'                // Java version for compiled bytecode
 
+// REPOSITORY CONFIGURATION
+// Repositories are like "libraries" where Gradle downloads dependencies from
 repositories {
-	mavenCentral()
+	mavenCentral()                        // Main repository for Java libraries
 }
 
+// DEPENDENCIES SECTION
+// Dependencies are external libraries your application needs to run
 dependencies {
+	// SPRING BOOT STARTERS - These are pre-configured Spring Boot modules
+	
+	// JPA (Java Persistence API) - For database operations
+	// Includes Hibernate (ORM framework) and database connection pooling
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	// Thymeleaf - Template engine for creating HTML pages
+	// Allows you to create dynamic web pages with Java data
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	
+	// Web starter - Includes Spring MVC for web applications
+	// Provides REST controllers, servlet container (Tomcat), etc.
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	// MySQL Connector - Database driver for MySQL
+	// This is only needed at runtime (when app is running)
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	
+	// TESTING DEPENDENCIES
+	// Spring Boot test starter - For unit and integration testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// JUnit Platform Launcher - For running tests
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+// TEST CONFIGURATION
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform()                    // Use JUnit 5 for testing
+}
+
+// JAR CONFIGURATION
+// This section configures how the final JAR file is created
+jar {
+	enabled = false                       // Disable regular JAR creation
+	archiveClassifier = ''                // No classifier for the JAR
 }

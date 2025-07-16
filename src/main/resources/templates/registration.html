@@ -1,112 +1,176 @@
+<!-- ===================================================== -->
+<!-- REGISTRATION.HTML - EMPLOYEE REGISTRATION FORM -->
+<!-- ===================================================== -->
+<!-- This template handles employee registration with form validation -->
+<!-- Uses Thymeleaf form binding to automatically map form data to Employee object -->
+<!-- Displays success/error messages dynamically -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Meta tags for proper HTML rendering -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Registration</title>
+    
+    <!-- CSS Styles - Embedded for simplicity -->
     <style>
+        /* Reset and base styles */
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 600px;                /* Narrower width for forms */
             margin: 0 auto;
             padding: 20px;
             background-color: #f5f5f5;
         }
+        
+        /* Main container styling */
         .container {
             background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
+        /* Page title styling */
         h1 {
             color: #333;
             text-align: center;
             margin-bottom: 30px;
         }
+        
+        /* Form group styling - each field group */
         .form-group {
             margin-bottom: 20px;
         }
+        
+        /* Label styling */
         label {
-            display: block;
+            display: block;                   /* Make labels block-level */
             margin-bottom: 5px;
             font-weight: bold;
             color: #333;
         }
+        
+        /* Input field styling */
         input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
+            width: 100%;                      /* Full width */
+            padding: 10px;                    /* Internal spacing */
+            border: 1px solid #ddd;           /* Light border */
+            border-radius: 5px;               /* Rounded corners */
+            font-size: 16px;                  /* Readable font size */
+            box-sizing: border-box;           /* Include padding in width */
         }
+        
+        /* Submit button styling */
         .btn {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
+            background-color: #007bff;        /* Blue background */
+            color: white;                     /* White text */
+            padding: 12px 30px;              /* Internal spacing */
+            border: none;                     /* No border */
+            border-radius: 5px;               /* Rounded corners */
+            cursor: pointer;                  /* Hand cursor on hover */
+            font-size: 16px;                 /* Readable font size */
+            width: 100%;                      /* Full width */
         }
+        
+        /* Button hover effect */
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #0056b3;        /* Darker blue on hover */
         }
+        
+        /* Message styling for success/error messages */
         .message {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+            padding: 10px;                    /* Internal spacing */
+            margin-bottom: 20px;              /* Space below message */
+            border-radius: 5px;               /* Rounded corners */
         }
+        
+        /* Success message styling (green) */
         .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #d4edda;        /* Light green background */
+            color: #155724;                   /* Dark green text */
+            border: 1px solid #c3e6cb;       /* Green border */
         }
+        
+        /* Error message styling (red) */
         .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;        /* Light red background */
+            color: #721c24;                   /* Dark red text */
+            border: 1px solid #f5c6cb;       /* Red border */
         }
+        
+        /* Back link styling */
         .back-link {
-            text-align: center;
-            margin-top: 20px;
+            text-align: center;               /* Center the link */
+            margin-top: 20px;                 /* Space above link */
         }
+        
         .back-link a {
-            color: #007bff;
-            text-decoration: none;
+            color: #007bff;                   /* Blue link color */
+            text-decoration: none;            /* No underline */
         }
+        
         .back-link a:hover {
-            text-decoration: underline;
+            text-decoration: underline;       /* Underline on hover */
         }
     </style>
 </head>
 <body>
+    <!-- Main content container -->
     <div class="container">
+        <!-- Page title -->
         <h1>Employee Registration</h1>
         
+        <!-- ===================================================== -->
+        <!-- DYNAMIC MESSAGE DISPLAY -->
+        <!-- ===================================================== -->
+        <!-- These divs show success/error messages from the controller -->
+        <!-- th:if="${message}" - Only show if message attribute exists -->
+        <!-- th:text="${message}" - Display the message text -->
         <div th:if="${message}" class="message success" th:text="${message}"></div>
         <div th:if="${error}" class="message error" th:text="${error}"></div>
         
+        <!-- ===================================================== -->
+        <!-- EMPLOYEE REGISTRATION FORM -->
+        <!-- ===================================================== -->
+        <!-- th:action="@{/register}" - Form submits to POST /register -->
+        <!-- th:object="${employee}" - Binds form to Employee object -->
+        <!-- method="post" - Uses POST method for form submission -->
         <form th:action="@{/register}" th:object="${employee}" method="post">
+            
+            <!-- Employee Name Field -->
             <div class="form-group">
                 <label for="name">Employee Name:</label>
+                <!-- th:field="*{name}" - Binds to employee.name property -->
+                <!-- required - HTML5 validation -->
                 <input type="text" id="name" th:field="*{name}" required>
             </div>
             
+            <!-- Employee Age Field -->
             <div class="form-group">
                 <label for="age">Age:</label>
+                <!-- th:field="*{age}" - Binds to employee.age property -->
+                <!-- min="18" max="65" - HTML5 validation for age range -->
+                <!-- required - HTML5 validation -->
                 <input type="number" id="age" th:field="*{age}" min="18" max="65" required>
             </div>
             
+            <!-- Monthly CTC Field -->
             <div class="form-group">
                 <label for="monthlyCtc">Monthly CTC (Cost to Company):</label>
+                <!-- th:field="*{monthlyCtc}" - Binds to employee.monthlyCtc property -->
+                <!-- step="0.01" - Allows decimal values -->
+                <!-- min="0" - HTML5 validation for positive values -->
+                <!-- required - HTML5 validation -->
                 <input type="number" id="monthlyCtc" th:field="*{monthlyCtc}" step="0.01" min="0" required>
             </div>
             
+            <!-- Submit Button -->
             <button type="submit" class="btn">Register Employee</button>
         </form>
         
+        <!-- Back to Home Link -->
         <div class="back-link">
             <a href="/">← Back to Home</a>
         </div>

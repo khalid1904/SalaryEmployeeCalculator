@@ -1,58 +1,94 @@
+<!-- ===================================================== -->
+<!-- INDEX.HTML - HOME PAGE TEMPLATE -->
+<!-- ===================================================== -->
+<!-- This is the main landing page of the application -->
+<!-- Thymeleaf is a template engine that allows you to create dynamic HTML pages -->
+<!-- xmlns:th="http://www.thymeleaf.org" enables Thymeleaf processing -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Meta tags for proper HTML rendering -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Salary Calculator</title>
+    
+    <!-- CSS Styles - Embedded for simplicity -->
+    <!-- In a real application, you might want to use external CSS files -->
     <style>
+        /* Reset and base styles */
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;  /* Font family for the entire page */
+            max-width: 800px;                /* Maximum width of the page */
+            margin: 0 auto;                  /* Center the page horizontally */
+            padding: 20px;                   /* Add padding around the page */
+            background-color: #f5f5f5;       /* Light gray background */
         }
+        
+        /* Main container styling */
         .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;          /* White background for content */
+            padding: 30px;                   /* Internal spacing */
+            border-radius: 10px;             /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);  /* Subtle shadow effect */
         }
+        
+        /* Page title styling */
         h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
+            color: #333;                      /* Dark gray text color */
+            text-align: center;               /* Center the title */
+            margin-bottom: 30px;              /* Space below the title */
         }
+        
+        /* Navigation links container */
         .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: flex;                    /* Use flexbox for layout */
+            flex-direction: column;           /* Stack links vertically */
+            gap: 15px;                       /* Space between links */
         }
+        
+        /* Individual navigation link styling */
         .nav-link {
-            display: block;
-            padding: 15px 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s;
+            display: block;                   /* Make links block-level */
+            padding: 15px 20px;              /* Internal spacing */
+            background-color: #007bff;        /* Blue background */
+            color: white;                     /* White text */
+            text-decoration: none;            /* Remove underline */
+            border-radius: 5px;               /* Rounded corners */
+            text-align: center;               /* Center text */
+            transition: background-color 0.3s; /* Smooth color transition */
         }
+        
+        /* Hover effect for navigation links */
         .nav-link:hover {
-            background-color: #0056b3;
+            background-color: #0056b3;        /* Darker blue on hover */
         }
     </style>
 </head>
 <body>
+    <!-- Main content container -->
     <div class="container">
+        <!-- Page title -->
         <h1>Employee Salary Calculator</h1>
+        
+        <!-- Welcome message -->
         <p style="text-align: center; margin-bottom: 30px; color: #666;">
             Welcome to the Employee Salary Calculator. Please choose an option below:
         </p>
         
+        <!-- Navigation links section -->
+        <!-- These links will navigate to different pages in the application -->
         <div class="nav-links">
+            <!-- Link to employee registration page -->
+            <!-- href="/register" - Maps to @GetMapping("/register") in EmployeeController -->
             <a href="/register" class="nav-link">Register New Employee</a>
+            
+            <!-- Link to employee details lookup page -->
+            <!-- href="/employee-details" - Maps to @GetMapping("/employee-details") in EmployeeController -->
             <a href="/employee-details" class="nav-link">View Employee Details</a>
+            
+            <!-- Link to salary calculation page -->
+            <!-- href="/calculate-salary" - Maps to @GetMapping("/calculate-salary") in EmployeeController -->
             <a href="/calculate-salary" class="nav-link">Calculate Employee Salary</a>
         </div>
     </div>
