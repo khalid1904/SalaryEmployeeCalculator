@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculation Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .employee-info, .salary-breakdown {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .value {
+            color: #333;
+        }
+        .tax-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 8px 0;
+        }
+        .tax-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .tax-value {
+            color: #333;
+            font-weight: 500;
+        }
+        .total-row {
+            border-top: 2px solid #007bff;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Salary Calculation Result</h1>
+        
+        <div class="employee-info">
+            <h3>Employee Information</h3>
+            <div class="info-row">
+                <span class="label">Employee ID:</span>
+                <span class="value" th:text="${employee.id}"></span>
+            </div>
+            <div class="info-row">
+                <span class="label">Name:</span>
+                <span class="value" th:text="${employee.name}"></span>
+            </div>
+            <div class="info-row">
+                <span class="label">Age:</span>
+                <span class="value" th:text="${employee.age}"></span>
+            </div>
+            <div class="info-row">
+                <span class="label">Monthly CTC:</span>
+                <span class="value" th:text="${'₹' + #numbers.formatDecimal(employee.monthlyCtc, 1, 2)}"></span>
+            </div>
+        </div>
+        
+        <div class="salary-breakdown">
+            <h3>Salary Breakdown</h3>
+            <div class="tax-row">
+                <span class="tax-label">Annual CTC:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.annualCtc, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Standard Deductions:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.deductions, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Taxable Income:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.taxableIncome, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Income Tax:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.netPayableTax - taxCalculation.surcharge - taxCalculation.cess, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Surcharge:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.surcharge, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Health & Education Cess:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.cess, 1, 2)}"></span>
+            </div>
+            <div class="tax-row">
+                <span class="tax-label">Total Tax:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.netPayableTax, 1, 2)}"></span>
+            </div>
+            <div class="tax-row total-row">
+                <span class="tax-label">Annual Take Home Salary:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.takeHomeSalary, 1, 2)}"></span>
+            </div>
+            <div class="tax-row total-row">
+                <span class="tax-label">Monthly Take Home Salary:</span>
+                <span class="tax-value" th:text="${'₹' + #numbers.formatDecimal(taxCalculation.takeHomeSalary / 12, 1, 2)}"></span>
+            </div>
+        </div>
+        
+        <div class="back-link">
+            <a href="/calculate-salary">← Calculate Another Salary</a>
+            <br>
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html> 
